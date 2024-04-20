@@ -1,0 +1,8 @@
+torch>=1.2.0
+torchvision>=0.17.1
+einops>=0.7.0
+numpy>=1.14.3
+scipy>=1.0.1
+scikit-image>=0.13.0
+opencv-python>=2.4.11
+kornia>=0.7.2
