@@ -30,21 +30,20 @@ class Textile(nn.Module):
                 raise e
 
         self.model = CreateModel(model_path)
-        self.lambda_value = lambda_value
+        self.lambda_value = torch.tensor(lambda_value)
 
-    def forward(self, image: torch.Tensor, return_numpy: bool = True):
+    def forward(self, image: torch.Tensor, return_logits: bool = False):
         """
         Forward function
         :param image: Tiled image
-        :param return_numpy: Set to false if you want the raw, unbounded, model predictions (For optimization purposes).
+        :param return_numpy: Set to true if you want the raw, unbounded, model logits (For optimization purposes).
         :return: Estimated textile prediction
         """
         assert image.dim() == 4
         assert image.size(1) == 3
 
         result = self.model(image.float().cuda())
-        if return_numpy is True:
-            result = result.cpu().detach().numpy()[0][0]
-            result = 1 / (1 + np.exp((-self.lambda_value * np.array(result).astype(float))))
+        if return_logits is False:
+            result = 1 / (1 + torch.exp((-self.lambda_value * result)))
 
         return result
