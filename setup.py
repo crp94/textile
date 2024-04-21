@@ -12,7 +12,7 @@ setuptools.setup(
      long_description_content_type="text/markdown",
      url="https://github.com/crp94/textile",
      packages=['textile-metric'],
-     install_requires=["torch>=1.2.0", "torchvision>=0.17.1", "einops>=0.7.0", "numpy>=1.14.3", "opencv-python>=2.4.11", "kornia>=0.7.2"],
+     install_requires=["torch>=1.2.0", "torchvision>=0.17.1", "einops>=0.7.0", "numpy>=1.14.3", "opencv-python>=2.4.11", "kornia>=0.7.2", "progressbar>=2.5"],
      classifiers=[
          "Programming Language :: Python :: 3",
          "Operating System :: OS Independent",
