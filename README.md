@@ -7,7 +7,7 @@ Official repository of "TexTile: A Differentiable Metric for Texture Tileability
 In [CVPR](https://arxiv.org/abs/2403.12961v1), 2024.
 
 
-<img src='data/teaser.png' width=1200>
+<img src='textile/data/teaser.png' width=1200>
 
 We introduce TexTile, a novel differentiable metric to quantify the degree upon which a texture image can be concatenated with itself without introducing repeating artifacts (i.e., the tileability). Existing methods for tileable texture synthesis focus on general texture quality, but lack explicit analysis of the intrinsic repeatability properties of a texture. In contrast, our TexTile metric effectively evaluates the tileable properties of a texture, opening the door to more informed synthesis and analysis of tileable textures. Under the hood, TexTile is formulated as a binary classifier carefully built from a large dataset of textures of different styles, semantics, regularities, and human annotations. Key to our method is a set of architectural modifications to baseline pre-train image classifiers to overcome their shortcomings at measuring tileability, along with a custom data augmentation and training regime aimed at increasing robustness and accuracy. We demonstrate that TexTile can be plugged into different state-of-the-art texture synthesis methods, including diffusion-based strategies, and generate tileable textures while keeping or even improving the overall texture quality. Furthermore, we show that TexTile can objectively evaluate any tileable texture synthesis method, whereas the current mix of existing metrics produces uncorrelated scores which heavily hinders progress in the field.
 
@@ -15,11 +15,12 @@ We introduce TexTile, a novel differentiable metric to quantify the degree upon 
 ### Quick start
 
 Run `pip install textile-metric`. The following Python code is all you need. Note that models are downloaded automatically.
+
 ```python
 import textile
 from textile.utils.image_utils import read_and_process_image
 loss_textile = textile.Textile() 
-image = read_and_process_image('data/texture_368.jpg')
+image = read_and_process_image('textile/data/texture_368.jpg')
 textile = loss_textile(image)
 ```
 
