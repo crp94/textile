@@ -14,7 +14,7 @@ We introduce TexTile, a novel differentiable metric to quantify the degree upon 
 
 ### Quick start
 
-Run `pip install textile-metric`. The following Python code is all you need. Note that models are downloaded automatically.
+Run `pip install textile-metric`. The following Python code is all you need. Note that models are downloaded automatically from the [Hugging Face Hub](https://huggingface.co/crp94/textile).
 
 ```python
 import textile
