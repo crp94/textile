@@ -10,15 +10,17 @@ from torch import nn
 
 import textile
 
-from textile.utils.misc import MyProgressBar
 from textile.utils.create_model import CreateModel
+
+HF_REPO_ID = "crp94/textile"
+HF_FILENAME = "model.safetensors"
 
 
 class Textile(nn.Module):
-    def __init__(self, model_path: str = "textile/models/textile.pth", lambda_value: float = 0.25, resolution = (512, 512), number_tiles = 2):
+    def __init__(self, model_path: str = None, lambda_value: float = 0.25, resolution = (512, 512), number_tiles = 2):
         """
         Implementation of TexTile: A Differentiable Metric for Texture Tileability
-        :param model_path: Path to pretrained model
+        :param model_path: Path to pretrained model (.safetensors or .pth). If None, it is downloaded from the Hugging Face Hub.
         :param lambda_value: Lambda value to transform the unbounded model prediction to the (0, 1) range. Higher lambdas provide more sensitive predictions. Check our supplementary material for more details.
         :param resolution: Resolution of the image provided to the model after tiling.
         :param number_tiles: Number of tiles to tile the image
@@ -26,21 +28,13 @@ class Textile(nn.Module):
         super(Textile, self).__init__()
 
         assert torch.cuda.is_available()
-        assert model_path.endswith('.pth')
         assert lambda_value >= 0 and lambda_value <= 1
 
-
-        is_model_on_disc = os.path.exists(model_path)
-        if not is_model_on_disc:
-            try:
-                import urllib.request
-                from pathlib import Path
-                print('Model not found, downloading pretrained model:')
-                Path("textile/models/").mkdir(parents=True, exist_ok=True)
-                urllib.request.urlretrieve("https://carlosrodriguezpardo.es/projects/TexTile/models/textile_v3.pth", model_path, MyProgressBar())
-            except Exception as e:
-                print('Could not retrieve pretrained model')
-                raise e
+        if model_path is None:
+            from huggingface_hub import hf_hub_download
+            model_path = hf_hub_download(repo_id=HF_REPO_ID, filename=HF_FILENAME)
+        elif not os.path.exists(model_path):
+            raise FileNotFoundError(f"Model not found at {model_path}. Pass model_path=None to download it from https://huggingface.co/{HF_REPO_ID}")
 
         self.model = CreateModel(model_path).cuda().eval()
         self.lambda_value = torch.tensor(lambda_value)

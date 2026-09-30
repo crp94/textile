@@ -36,6 +36,10 @@ def CreateModel(pre_trained_network=None):
 
     if pre_trained_network is not None:
         # print("Reading model from disc")
-        model_weights = torch.load(pre_trained_network)
-        model.load_state_dict(model_weights, strict=False)
+        if pre_trained_network.endswith('.safetensors'):
+            from safetensors.torch import load_file
+            model_weights = load_file(pre_trained_network)
+        else:
+            model_weights = torch.load(pre_trained_network, map_location='cpu', weights_only=True)
+        model.load_state_dict(model_weights, strict=True)
     return model

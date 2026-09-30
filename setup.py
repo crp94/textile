@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
      name='textile-metric',
-     version='0.0.10',
+     version='0.0.11',
      author="Carlos Rodriguez-Pardo",
      author_email="carlos.rodriguezpardo.jimenez@gmail.com",
      description="TexTile: A Differentiable Metric for Texture Tileability",
@@ -15,7 +15,7 @@ setuptools.setup(
      packages=['textile'],
      package_data={'textile': ['data/*.png','data/*.jpg', 'utils/*.py', 'architectures/*.py', 'architectures/layers/*.py', 'architectures/layers/attention/*.py']},
      include_package_data=True,
-     install_requires=["torch>=1.2.0", "torchvision>=0.17.1", "einops>=0.7.0", "numpy>=1.14.3", "opencv-python>=2.4.11", "kornia>=0.7.2", "progressbar>=2.5"],
+     install_requires=["torch>=1.2.0", "torchvision>=0.17.1", "einops>=0.7.0", "numpy>=1.14.3", "opencv-python>=2.4.11", "kornia>=0.7.2", "safetensors>=0.4.0", "huggingface_hub>=0.20.0"],
      classifiers=[
          "Programming Language :: Python :: 3",
          "Operating System :: OS Independent",

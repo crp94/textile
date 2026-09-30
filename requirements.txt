@@ -4,3 +4,5 @@ einops>=0.7.0
 numpy>=1.14.3
 opencv-python>=2.4.11
 kornia>=0.7.2
+safetensors>=0.4.0
+huggingface_hub>=0.20.0
